@@ -55,7 +55,7 @@ function refreshMap(series){
 
     // render map
     new Datamap({
-        element: document.getElementById('container1'),
+        element: document.getElementById('containerMap'),
         done: function(datamap) {
           var startInput = document.getElementById('dateStart');
           var endInput = document.getElementById('dateEnd');
@@ -105,13 +105,12 @@ function refreshMap(series){
 
 }
 
-d3.csv("frequencies.csv", function(data) {
+d3.csv("/home/bud/Documents/s2/nosql/project/NoSql/src/JSvisualisation/frequencies.csv", function(data) {
   series = [];
+  console.log(data);
   data.forEach(function(d) {
     series.push([d.Country, parseFloat(d.Frequency)])
   });
-
-  console.log(series)
 
   refreshMap(series);
 

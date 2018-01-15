@@ -5,6 +5,10 @@
 		<meta charset="utf-8">
 
 		<title>NoSql Presentation</title>
+		<style>
+	    #containerMap { border:1px dotted blue; width: 80%; height: 475px; position: relative; margin: 0 auto;}
+	  </style>
+
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -97,16 +101,24 @@
 
 			</section>
 
+			<section>
+				<div>
+				From <input id="dateStart" type="date" value="2017-06-01"> to <input id="dateEnd" type="date" value="2017-06-01">
+				</div>
+
+				<div id="containerMap"></div>
+				<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+			  <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+			  <script src="http://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.8/datamaps.all.js"></script>
+
+			  <script>
+					d3.csv("frequencies.csv", function(data) {
+						console.log('LOAD CSV', data);
+					});
+				</script>
 
 
-
-
-
-
-
-
-
-
+			</section>
 
 
 
