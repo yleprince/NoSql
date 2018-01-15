@@ -6,7 +6,7 @@
 
 		<title>NoSql Presentation</title>
 		<style>
-	    #container1 { border:1px dotted blue; width: 80%; height: 475px; position: relative; margin: 0 auto;}
+	    #containerMap { border:1px dotted blue; width: 80%; height: 475px; position: relative; margin: 0 auto;}
 	  </style>
 
 
@@ -24,6 +24,20 @@
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="./reveal.js/lib/css/zenburn.css">
 
+		<style>
+			/*div.tooltip {*/
+				/*position: absolute;*/
+				/*text-align: center;*/
+				/*width: 60px;*/
+				/*height: 28px;*/
+				/*padding: 2px;*/
+				/*font: 12px sans-serif;*/
+				/*background: lightsteelblue;*/
+				/*border: 0px;*/
+				/*border-radius: 8px;*/
+				/*pointer-events: none;*/
+			/*}*/
+		</style>
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
@@ -44,6 +58,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
+
 				<section>
 					<h1>Interactions Map</h1>
 					<h3>NoSql Project - 2018</h3>
@@ -76,7 +91,7 @@
 					</table>
 				</section>
 
-			<section>
+				<section>
 				<section>
 					<h1><a href="http://datamaps.github.io/">DATAmaps</a></h1>
 				</section>
@@ -87,20 +102,20 @@
 							Customizable SVG map visualizations in a single Javascript file using D3.js
 					</p>
 				</section>
-			<section>
+				<section>
 				<h2><a href="http://datamaps.github.io/">to a convenient communication</a></h2>
 				<p>
 					Interactive tool: enables to send and receive data in a Json format.
 					This Json format led us to choose a specific No-SQL technology:
 				</p>
-			</section>
-		</section>
+				</section>
+				</section>
 
-		<section>
-			<section>
+				<section>
+				<section>
 				<h1><a href="https://www.mongodb.com/">MongoDB</a></h1>
-			</section>
-			<section>
+				</section>
+				<section>
 				<h2><a href="https://www.mongodb.com/">MongoDB</a></h2>
 				<p>
 					<li> Organized in document format. </li>
@@ -109,12 +124,12 @@
 					<li> Durability</li>
 					<li> Redundancy and high availability</li>
 				</p>
-			</section>
-			<section>
+				</section>
+				<section>
 				<h2><a href="https://www.mongodb.com/">MongoDB</a></h2>
 				<p>
 					Write semantics: we choose
-					    - primary acknowledge
+							- primary acknowledge
 							- N members acknowledge
 							- majority acknowledge
 				</p>
@@ -125,13 +140,13 @@
 							- linearizable ⇒ successful writes issued with a write concern of"majority" and acknowledged prior to the start of the read
 							operation
 					If to complicate to specifiy: can at the query level Maximize Consistency ⇒ primary read preference
-Maximize Availability ⇒ primaryPreferred read preference
-Minimize Latency ⇒ nearest read preference
+				Maximize Availability ⇒ primaryPreferred read preference
+				Minimize Latency ⇒ nearest read preference
 				</p>
-			</section>
-		</section>
+				</section>
+				</section>
 
-			<section>
+				<section>
 				<section>
 				<h1><a href="https://aws.amazon.com/">Amazon Web Services, Inc.</a></h1>
 				</section>
@@ -145,40 +160,31 @@ Minimize Latency ⇒ nearest read preference
 				</section>
 
 
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<section id="slideMap">
+				From <input id="dateStart" type="date" value="2017-12-27"> to <input id="dateEnd" type="date" value="2017-12-30">
+					<div id="containerMap"></div>
+
 			</section>
-
-
-
-
-			<section>
-				<div>
-				From <input id="dateStart" type="date" value="2017-06-01"> to <input id="dateEnd" type="date" value="2017-06-01">
-				</div>
-
-				<div id="container1"></div>
-				<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
-			  <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-			  <script src="http://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.8/datamaps.all.js"></script>
-
-			  <script src="loadDATAmap2.js"></script>
-
-
-			</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -512,31 +518,11 @@ Reveal.addEventListener( 'customevent', function() {
 
 		<script src="./reveal.js/lib/js/head.min.js"></script>
 		<script src="./reveal.js/js/reveal.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.8/datamaps.all.js"></script>
 
-		<script>
-
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
-
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: './reveal.js/plugin/search/search.js', async: true },
-					{ src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
-					{ src: './reveal.js/plugin/notes/notes.js', async: true }
-				]
-			});
-
-		</script>
+		<script src='pres.js'> </script>
 
 	</body>
 </html>
