@@ -48,14 +48,14 @@
 					<h1>Interactions Map</h1>
 					<h3>NoSql Project - 2018</h3>
 					<p>
-						<small>Created by <a href="https://www.google.fr/">Badr</a>,
-							<a href="https://www.google.fr/">Baptiste</a>,
-							<a href="https://www.google.fr/">Clément</a> and
+						<small>Created by <a href="https://www.linkedin.com/in/badr-ghazlane-235434119/">Badr</a>,
+							<a href="https://www.linkedin.com/in/baptiste-aubert-b52741ab/">Baptiste</a>,
+							<a href="http://clementtailleur.com/">Clément</a> and
 							<a href="https://www.linkedin.com/in/yrieixleprince/">Yrieix</a></small>
 					</p>
 				</section>
 
-			<section>
+
 				<section>
 					<h2>Technologies used:</h2>
 					<table>
@@ -76,30 +76,79 @@
 					</table>
 				</section>
 
+			<section>
 				<section>
-					<h2><a href="http://datamaps.github.io/">DATAmaps</a></h2>
-					<p>
-						Customizable SVG map visualizations in a single Javascript file using D3.js
-					</p>
+					<h1><a href="http://datamaps.github.io/">DATAmaps</a></h1>
 				</section>
 
 				<section>
-					<h2><a href="https://www.mongodb.com/">MongoDB</a></h2>
-					<ul>
-						<li>Document oriented Data Base</li>
-						<li>Schemaless : Dynamic</li>
-						<li>Scalable</li>
-					</ul>
+					<h2><a href="http://datamaps.github.io/">From Efficicent Vizualization...</a></h2>
+					<p>
+							Customizable SVG map visualizations in a single Javascript file using D3.js
+					</p>
+				</section>
+			<section>
+				<h2><a href="http://datamaps.github.io/">to a convenient communication</a></h2>
+				<p>
+					Interactive tool: enables to send and receive data in a Json format.
+					This Json format led us to choose a specific No-SQL technology:
+				</p>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1><a href="https://www.mongodb.com/">MongoDB</a></h1>
+			</section>
+			<section>
+				<h2><a href="https://www.mongodb.com/">MongoDB</a></h2>
+				<p>
+					<li> Organized in document format. </li>
+					<li> Very efficient for storing Json format (returned by DataMaps)</li>
+					<li> Scalability</li>
+					<li> Durability</li>
+					<li> Redundancy and high availability</li>
+				</p>
+			</section>
+			<section>
+				<h2><a href="https://www.mongodb.com/">MongoDB</a></h2>
+				<p>
+					Write semantics: we choose
+					    - primary acknowledge
+							- N members acknowledge
+							- majority acknowledge
+				</p>
+				<p>
+					Read Concern: we choose
+							- local ( return the P/S instance most recent data no guarantee that the data has been )
+							- majority of RS
+							- linearizable ⇒ successful writes issued with a write concern of"majority" and acknowledged prior to the start of the read
+							operation
+					If to complicate to specifiy: can at the query level Maximize Consistency ⇒ primary read preference
+Maximize Availability ⇒ primaryPreferred read preference
+Minimize Latency ⇒ nearest read preference
+				</p>
+			</section>
+		</section>
+
+			<section>
+				<section>
+				<h1><a href="https://aws.amazon.com/">Amazon Web Services, Inc.</a></h1>
 				</section>
 
 				<section>
-					<h2><a href="https://aws.amazon.com/">Amazon Web Services, Inc.</a></h2>
-					<p>
-						Provide on-demand cloud computing platforms to individuals
-					</p>
+				<h2><a href="https://aws.amazon.com/">Amazon Web Services, Inc.</a></h2>
+				<p>
+					Provide on-demand cloud computing platforms to individuals
+					Possibility to tailor make computing/storage platforms according to specific needs
+				</p>
 				</section>
+
 
 			</section>
+
+
+
 
 			<section>
 				<div>
@@ -115,6 +164,19 @@
 
 
 			</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
