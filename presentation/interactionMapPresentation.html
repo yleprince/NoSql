@@ -6,7 +6,7 @@
 
 		<title>NoSql Presentation</title>
 		<style>
-	    #containerMap { border:1px dotted blue; width: 80%; height: 475px; position: relative; margin: 0 auto;}
+	    #container1 { border:1px dotted blue; width: 80%; height: 475px; position: relative; margin: 0 auto;}
 	  </style>
 
 
@@ -106,16 +106,12 @@
 				From <input id="dateStart" type="date" value="2017-06-01"> to <input id="dateEnd" type="date" value="2017-06-01">
 				</div>
 
-				<div id="containerMap"></div>
+				<div id="container1"></div>
 				<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 			  <script src="http://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 			  <script src="http://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.8/datamaps.all.js"></script>
 
-			  <script>
-					d3.csv("frequencies.csv", function(data) {
-						console.log('LOAD CSV', data);
-					});
-				</script>
+			  <script src="loadDATAmap2.js"></script>
 
 
 			</section>
