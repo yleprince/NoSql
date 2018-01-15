@@ -78,6 +78,63 @@
 
 
 				<section>
+					<section>
+					<h1>Subject</h1>
+					<p>
+						For this study we decided to use the <a href ="http://data.gdeltproject.org/events/index.html"> Gdelt Database</a>,
+					</p>
+					</section>
+
+					<section>
+					<h2>Data Preprocessing</h2>
+					<p>
+						<li> Extract file list </li>
+						<li> Regex on CSV tiles </li>
+						<li> Parse CSV files and upload only the data corresponding to... </li>
+					</p>
+					</section>
+
+					<section>
+					<h2>Python Server</h2>
+					<p>
+						<li> Receive Json type requests from Datamaps </li>
+						<li> Translate requests to question Mongo Cluster </li>
+						<li> Get result and send back to Datamaps </li>
+					</p>
+					</section>
+
+					<section>
+					<h2>Architecture Big Picture</h2>
+					<p>
+						<img src="/Users/baptisteaubert/Desktop/Big_Data_Telecom_Paris/P2/NoSQL/Projet/NoSql/Pict1.png"  height="500" width="705">
+					</p>
+					</section>
+
+					<section>
+					<h2>Dynamic Interactions - 1 </h2>
+					<p>
+						<img src="/Users/baptisteaubert/Desktop/Big_Data_Telecom_Paris/P2/NoSQL/Projet/NoSql/Pict2.png"  height="500" width="705">
+					</p>
+					</section>
+
+					<section>
+					<h2>Dynamic Interactions - 2 </h2>
+					<p>
+						<img src="/Users/baptisteaubert/Desktop/Big_Data_Telecom_Paris/P2/NoSQL/Projet/NoSql/Pict3.png"  height="500" width="705">
+					</p>
+					</section>
+
+					<section>
+					<h2>Python Server Focus</h2>
+					<p>
+						<img src="/Users/baptisteaubert/Desktop/Big_Data_Telecom_Paris/P2/NoSQL/Projet/NoSql/Pict4.png"  height="500" width="705">
+					</p>
+					</section>
+
+
+				</section>
+
+				<section>
 					<h2>Technologies used:</h2>
 					<table>
 						<tbody>
@@ -134,10 +191,7 @@
 				<section>
 				<h2><a href="https://www.mongodb.com/">MongoDB</a></h2>
 				<p>
-					Write semantics: we choose
-							- primary acknowledge
-							- N members acknowledge
-							- majority acknowledge
+					Write semantics: we choose majority acknowledge
 				</p>
 				<p>
 					Read Concern: we choose
