@@ -53,6 +53,13 @@ Reveal.addEventListener('ready', function( event ) {
     });
 } );
 
+
+// Define the div for the tooltip
+var divTooltip = d3.select("#slideMap").append("div")
+    .attr("id", "divTooltip")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
 // // example data from server
 // window.addEventListener("load", function () {
 //     // Crée l'instance WebSocket
@@ -78,6 +85,7 @@ Reveal.addEventListener('ready', function( event ) {
 function refreshMap(series){
 
     d3.selectAll(".datamap").remove();
+    d3.selectAll("divTooltip").remove();
     // Datamaps expect data in format:
     // { "USA": { "fillColor": "#42a844", numberOfWhatever: 75},
     //   "FRA": { "fillColor": "#8dc386", numberOfWhatever: 43 } }
@@ -105,10 +113,7 @@ function refreshMap(series){
         dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value) };
     });
 
-    // Define the div for the tooltip
-    var divTooltip = d3.select("#slideMap").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+
 
     // render map
     let mymap = new Datamap({
@@ -137,7 +142,7 @@ function refreshMap(series){
             datamap.svg.selectAll('.datamaps-subunit').on('mouseover', function(geography) {
                 let id = geography.id;
                 let d = dataset[geography.id] ? dataset[geography.id].numberOfThings : 0;
-                console.log(id, d);
+                //console.log(id, d);
                 divTooltip.transition()
                     .duration(200)
                     .style("opacity", .9);

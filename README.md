@@ -16,6 +16,6 @@
 
 <span>4.</span> Clone the **reveal.js** repository:
 
-`git clone git@github.com:hakimel/reveal.js.git`
+`git clone https://github.com/hakimel/reveal.js.git`
 
 You're now ready to watch the presentation by opening the `.html` file in your favorite browser. (NB: only this html file should be modified).

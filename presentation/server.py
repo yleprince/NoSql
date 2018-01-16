@@ -9,51 +9,68 @@ import sys
 import pandas as pd
 from multiprocessing import Pool
 
-
-ip_public_master = '184.72.120.138:27016'
-client = MongoClient(ip_public_master) # Add IP address
-#client = MongoClient()
-db = client.gdelt
-events = db.events
-
+Actor1 = 'FRA'
+d1 = pd.to_datetime("20171227")
+d2 = pd.to_datetime("20171229")
 
 def askMongo(Actor1, Date1, Date2):
     """Requests the MongoDb cluster AWS """
-    list_Actors2 = events.distinct('Actor2Code')
-
-    list_Actors2_clean=[]
-    for pays in list_Actors2:
-        if len(pays)<4:
-            list_Actors2_clean.append(pays)
-        else :
-            list_Actors2_clean.append(pays[:3])
-
+    actor2list = [a for a in events.distinct('Actor2Code') if len(a)<4 ]
 
     dict_result={}
 
-    for pays in list_Actors2_clean:
+    for pays in actor2list[:5]:
         dict_result[pays] = events.find({'Actor1Code' : Actor1, 'Actor2Code' : pays, 'Day' : {"$in":[pd.to_datetime(Date1),pd.to_datetime(Date2)]}}).count()
-
+        print(pays, dict_result[pays])
     return dict_result
 
+def getCountrieslist():
+    ip_public_master = '184.72.120.138:27010'
+    client = MongoClient(ip_public_master) # Add IP address
+    #client = MongoClient()
+    db = client.gdelt
+    events = db.events
+    actor2list = [a for a in events.distinct('Actor2Code') if len(a)<4 ]
+    return actor2list
+
+def request(a2):
+    ip_public_master = '184.72.120.138:27010'
+    client = MongoClient(ip_public_master) # Add IP address
+    #client = MongoClient()
+    db = client.gdelt
+    events = db.events
+    count = events.find({'Actor1Code' : Actor1, 'Actor2Code' : a2, 'Day' : {"$in":[d1, d2]}}).count()
+    print(a2, count)
+    return (a2, count)
 
 
-
-def askMongoMulti(Actor1, Date1, Date2):
+def askMongoMulti(Actor1Code, Date1, Date2):
     """Requests the MongoDb cluster AWS """
 
-    #actor2list = [a if len(a)<4 else a[:3] for a in events.distinct('Actor2Code')]
-    actor2list = [a for a in events.distinct('Actor2Code') if len(a)<4 ]
-    frequencies = {country: 0 for country in actor2list}
+    global Actor1    # Needed to modify global copy of globvar
+    Actor1 = Actor1Code
 
+    global d1    # Needed to modify global copy of globvar
     d1 = pd.to_datetime(Date1)
+    global d2    # Needed to modify global copy of globvar
     d2 = pd.to_datetime(Date2)
 
-    request = lambda a2 : tuple(a2, events.find({'Actor1Code' : Actor1, 'Actor2Code' : a2, 'Day' : {"$in":[d1, d2]}}).count())
+
+    #actor2list = [a if len(a)<4 else a[:3] for a in events.distinct('Actor2Code')]
+
+    #actor2list = getCountrieslist()
+    actor2list = ['RUS', 'CAD', 'USA', 'CHI', 'BRA', 'AUS', 'KAZ',
+    'IND', 'ARG', 'ALG', 'DAN', 'GRL', 'MEX', 'FRA', 'ANG', 'SAU',
+    'IDN', 'SAU', 'COD', 'SOU', 'LIB', 'IRA', 'IRQ', 'YEM', 'TUR',
+    'ITA', 'ESP', 'GRB', 'DEU', 'SWE', 'NOR', 'POL', 'ZAF', 'BOL',
+    'CHL', 'DZA', 'EGY', 'MAU', 'JPN']
+
+    frequencies = {country: 0 for country in actor2list}
+
 
     p = Pool(5)
 
-    frequencies_list = list(p.map(request, actor2list))
+    frequencies_list = list(p.map(request, actor2list[:100]))
 
     for f in frequencies_list:
         frequencies[f[0]] = f[1]
@@ -90,7 +107,7 @@ def handle_msg(msg):
     startDate = str(request["start"])
     endDate = str(request["end"])
 
-    mongoResult = askMongo(country, startDate, endDate)
+    mongoResult = askMongoMulti(country, startDate, endDate)
     print(mongoResult)
     return json.dumps(mongoResult)
 
