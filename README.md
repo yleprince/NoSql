@@ -19,3 +19,13 @@
 `git clone https://github.com/hakimel/reveal.js.git`
 
 You're now ready to watch the presentation by opening the `.html` file in your favorite browser. (NB: only this html file should be modified).
+
+
+### Launch the python server:
+
+<span>1.</span> At the root of the repository:
+
+`python3 ./src/server.py`
+
+<span>2.</span> Open in your favorite web browser the file
+`./presentation/interactionMapPresentation.html` (at least it works in Firefox).
