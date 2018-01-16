@@ -41,9 +41,9 @@ Reveal.addEventListener('ready', function( event ) {
 
     };
 
-    d3.csv("frequencies.csv", function(data) {
+    d3.csv("initialColors.csv", function(data) {
         series = [];
-        console.log(data);
+        console.log('data', data);
         data.forEach(function(d) {
             series.push([d.Country, parseFloat(d.Frequency)])
         });
@@ -60,27 +60,6 @@ var divTooltip = d3.select("#slideMap").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-// // example data from server
-// window.addEventListener("load", function () {
-//     // Crée l'instance WebSocket
-//     mySocket = new WebSocket("ws://localhost:9000");
-//     // Ecoute pour les messages arrivant
-//     mySocket.onmessage = function (event) {
-//
-//         let res = JSON.parse(event.data);
-//
-//         var country_codes2 = d3.keys(res);
-//         var series = []
-//         country_codes2.forEach(function(d) {
-//             series.push([d, parseFloat(res[d])])
-//         });
-//
-//         refreshMap(series);
-//
-//         console.log(series);
-//
-//     };
-// });
 
 function refreshMap(series){
 
@@ -181,14 +160,3 @@ function refreshMap(series){
     console.log(mymap);
     // console.log(mymap.options.element.outerHTML)
 }
-
-// d3.csv("frequencies.csv", function(data) {
-//     series = [];
-//     console.log(data);
-//     data.forEach(function(d) {
-//         series.push([d.Country, parseFloat(d.Frequency)])
-//     });
-//
-//     refreshMap(series);
-//
-// });

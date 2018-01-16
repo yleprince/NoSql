@@ -1,10 +1,14 @@
+# coding=utf-8
+from multiprocessing import Pool
 import numpy as np
 import pandas as pd
-from multiprocessing import Pool
+import pprint
+import pymongo
 import re
 import requests
 import sys
-
+import warnings
+warnings.filterwarnings('ignore')
 from pymongo import MongoClient
 
 url = "http://data.gdeltproject.org/events"
@@ -33,15 +37,15 @@ def extractFileList(rawHTML):
     regexZIP = re.compile(">(2017[0-9]{4}\.export\.CSV\.zip)<\/A>")
     filelist = regexZIP.findall(rawHTML)
 
-    zipFiles = []
+    newfilelist = []
     seen = set()
 
     for file in filelist:
         if not file in seen:
-            zipFiles.append(file)
+            newfilelist.append(file)
             seen.add(file)
 
-    return zipFiles
+    return newfilelist
 
 def actorCounter(file):
     file_path = url + "/" + file
@@ -50,12 +54,34 @@ def actorCounter(file):
     print(occurences)
     return occurences
 
-def getZipContent(filename):
+def getActorCODELines(filename):
+    """ On peut ameliorer en ne prenant que les lignes ou les acteurs 1 et 2 sont effectivement des pays"""
+    #code = 'FRA'
     file_path = url + "/" + filename
     df = pd.read_csv(file_path, sep='\t', header=None, names=events_heads, dtype='str')
-    return df
+    #return df[df.Actor1Code == code]
+
+    isInCountryCodes = lambda code: True if code in country_codes else False
+    df_filt0 = df[df.Actor1CountryCode.apply(isInCountryCodes)]
+    df_filt1 = df_filt0[df_filt0.Actor2CountryCode.apply(isInCountryCodes)]
+
+    df_small = df_filt1[["Actor1Code", "Actor2Code", "Day"]]
+
+    convert = lambda date: pd.to_datetime(date)
+    tmp = df_small['Day'].apply(convert)
+    df_small['Day'] = tmp
+    print(filename[:8],df_small.shape[0])
+    insertDF(df_small)
 
 
+def insertDF(df):
+    # MONGO
+    client = MongoClient()
+    db = client.gdelt
+    events = db.events
+
+    data = df.T.to_dict().values()
+    result = events.insert_many(data)
 
 #Table de transfert entre les noms de pays et les codes correspondants:
 url_geo_codes = "http://www.geonames.org/countries/"
@@ -64,7 +90,8 @@ dfgeo = pd.read_html(url_geo_codes)[1]
 dfgeo.columns = dfgeo.iloc[0]
 dfgeo = dfgeo[['ISO-3166alpha3', 'Country']][1:]
 
-country_codes = set(dfgeo['ISO-3166alpha3'])
+countries = [country for country in dfgeo['ISO-3166alpha3'] if len(country)<4]
+country_codes = set(countries)
 
 
 #On construit le DF qui contient toutes les lignes de GDELT où actor1GeoCode == 'FR'.
@@ -73,21 +100,8 @@ country_codes = set(dfgeo['ISO-3166alpha3'])
 rawHTML = getTextFromUrl(url)
 filelist = extractFileList(rawHTML)
 
-#Number of days to upload:
-days = 10
-print("filelist[:days] : ", filelist[:days])
+#Nombre de jour utilise:
+
+
 p = Pool(5)
-dfCODE = pd.concat(list(p.map(getZipContent, filelist[:days])), ignore_index=True)
-
-isInCountryCodes = lambda code: True if code in country_codes else False
-dfCODE_filtered0 = dfCODE[dfCODE.Actor1CountryCode.apply(isInCountryCodes)]
-dfCODE_filtered = dfCODE_filtered0[dfCODE.Actor2CountryCode.apply(isInCountryCodes)]
-
-
-# MONGO
-client = MongoClient()
-db = client.gdelt
-events = db.events
-
-data = dfCODE_filtered.T.to_dict().values()
-result = events.insert_many(data)
+p.map(getActorCODELines, filelist)
